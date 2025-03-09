@@ -17,3 +17,4 @@ Deep learning is a subfield of machine learning that uses neural networks with m
 - Image recognition
 - Speech recognition
 - Natural language processing
+- Natural language understanding 

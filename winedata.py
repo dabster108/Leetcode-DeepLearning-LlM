@@ -32,7 +32,10 @@ y = df['class']
 # Step 4: Split into training (60%), validation (20%), and testing (20%)
 X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=0.25, random_state=42, stratify=y_temp)
-# Now: 60% train, 20% val, 20% test
+# Now: 60% train, 20% val, 80% test
+print(f"\nTraining set size: {len(X_train)}")
+print(f"Validation set size: {len(X_val)}")
+print(f"Testing set size: {len(X_test)}")
 
 # Step 5: Normalize features
 scaler = StandardScaler()

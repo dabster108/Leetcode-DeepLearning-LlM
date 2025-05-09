@@ -6,10 +6,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
-
-
-# Load the locally saved Titanic CSV
-df = pd.read_csv('/Users/sumanshrestha/Downloads/titanic.csv')
+# Step 2: Load the Titanic dataset
+# Fix the file path to use your own path instead of someone else's
+df = pd.read_csv('/Users/dikshanta/Documents/Introduction-to-LLM-models/titanic-3f0b7484-dfd9-44be-a29e-278dd3165fc1.csv')  # Update this to your local path
 
 # Preview the dataset
 print(df.head())
@@ -30,8 +29,8 @@ X = df[features]
 y = df['survived']
 
 # Step 4: Split into training (60%), validation (20%), and testing (20%)
-X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=0.25, random_state=42, stratify=y_temp)
+X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=0.2, random_state= 32, stratify=y)
+X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=0.25, random_state= 32, stratify=y_temp)
 # Now: 60% train, 20% val, 20% test
 
 # Step 5: Normalize features
@@ -55,16 +54,19 @@ best_k = accuracy_list.index(max(accuracy_list)) + 1
 print("\nBest K value based on validation set:", best_k)
 
 # Combine train and validation sets
+X_combined = pd.concat([X_train, X_val])
+y_combined = pd.concat([y_train, y_val])
 
-X_final_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+# Scale the combined training data
+X_combined_scaled = scaler.fit_transform(X_combined)
 
-# Train final model
+# Train final model on combined data
 final_knn = KNeighborsClassifier(n_neighbors=best_k)
-final_knn.fit(X_final_train_scaled, y_train)
-
+final_knn.fit(X_combined_scaled, y_combined)
 
 # Step 8: Evaluate on test set
+# Re-scale test data using the scaler fit on combined training data
+X_test_scaled = scaler.transform(X_test)
 y_test_pred = final_knn.predict(X_test_scaled)
 print("\nFinal Test Accuracy:", accuracy_score(y_test, y_test_pred))
 print("\nFinal Classification Report:\n", classification_report(y_test, y_test_pred))

@@ -1,6 +1,9 @@
 class Solution:
     def convertToTitle(self, columnNumber: int) -> str:
         ''' 
+        Example 1:
+        Input: columnNumber = 1
+        Output: "A"
         Excel column title conversion:
         28 - 1 = 27
         27 % 26 = 1 → B

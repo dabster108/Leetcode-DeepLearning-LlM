@@ -11,3 +11,16 @@ class Solution(object):
             left += 1
             right -= 1
         return True
+
+
+
+# class Solution(object):
+#     def isPalindrome(self, s):
+#         """
+#         :type s: str
+#         :rtype: bool
+#         """
+#         # Filter only alphanumeric characters and convert to lowercase
+#         filtered = ''.join(char.lower() for char in s if char.isalnum())
+#         # Check if the filtered string is equal to its reverse
+#         return filtered == filtered[::-1]

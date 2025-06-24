@@ -1,4 +1,5 @@
 from typing import List
+from collections import defaultdict
 
 class Solution:
     def numberOfLines(self, widths: List[int], s: str) -> List[int]:
